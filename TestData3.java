@@ -11,10 +11,15 @@ public class TestData3 {
 	
 	public static void main(String[] args) {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-		myN=5000;
+		myN=3000;
 		myDatas=new int[myN];
 		initDatas(myDatas,myN);
 
+		System.out.print(sdf.format(new Date())+"\n");
+		sort5(myDatas,myN);
+		System.out.print(sdf.format(new Date())+"\n");
+		pirnt(myDatas, "希尔排序");
+		
 		System.out.print(sdf.format(new Date())+"\n");
 		sort4(myDatas);
 		System.out.print(sdf.format(new Date())+"\n");
@@ -35,6 +40,26 @@ public class TestData3 {
 		System.out.print(sdf.format(new Date())+"\n");
 		pirnt(myDatas,"选择排序");
 	}
+	
+	/**
+	 * 希尔排序
+	 * @param datas
+	 */
+	public static void sort5(int[] datas,int n){
+		int temp,j;
+		int gan=n/2;
+		while(gan>0){
+			for(int i=gan;i<datas.length;i++ ){
+				temp=datas[i];
+				for(j=i-gan;j>=0&&temp<datas[j];j=j-gan){
+					datas[j+gan]=datas[j];
+				}
+				datas[j+gan]=temp;
+			}
+			//pirnt(datas,gan+"调试：");
+			gan=gan/2;
+		}
+	}
 
 	/**
 	 * 冒泡排序
@@ -43,6 +68,7 @@ public class TestData3 {
 	public static void sort4(int[] datas){
 		int temp;
 		for(int i=0;i<datas.length;i++){
+			//
 			for(int j=i+1;j<datas.length;j++){
 				if(datas[i]>datas[j]){
 					temp=datas[i];
@@ -52,6 +78,24 @@ public class TestData3 {
 			}
 		}
 	}
+	
+	/**
+	 * 选择排序  工作原理:首先在未排序序列中找到最小元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小元素，然后放到排序序列末尾。以此类推，直到所有元素均排序完毕
+	 */
+	public static void sort1(int[] datas){
+		int j=0;
+		for (int i=0; i < datas.length; i++) {
+			//循环找出最大的值，降序排序
+			for (int k = i; k < datas.length; k++) {
+				if(datas[i]>datas[k]){
+					j=datas[k];
+					datas[k]=datas[i];
+					datas[i]=j;
+				}
+			}
+		}
+	}
+
 
 	/**
 	 * 插入排序  工作原理:通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。
@@ -104,24 +148,12 @@ public class TestData3 {
 		
 	}
 
-	//选择排序 工作原理:首先在未排序序列中找到最小元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小元素，然后放到排序序列末尾。以此类推，直到所有元素均排序完毕
-	public static void sort1(int[] datas){
-		int j=0;
-		for (int i=0; i < datas.length; i++) {
-			for (int k = i; k < datas.length; k++) {
-				if(datas[i]>datas[k]){
-					j=datas[k];
-					datas[k]=datas[i];
-					datas[i]=j;
-				}
-			}
-		}
-	}
 
 	public static void initDatas(int[] datas,int n){
 		for (int i=0;i<n;i++) {
 			datas[i]=random.nextInt(n);
 		}
+		pirnt(datas,"初始数组：");
 	}
 	
 	public static void pirnt(int[] in ,String str){
